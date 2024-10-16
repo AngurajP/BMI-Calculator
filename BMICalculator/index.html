@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BMI Calculator</title>
+    <link rel="stylesheet" href="./index.css">
+    <link rel="stylesheet" href="./bootsrap.min.css">
+</head>
+<body id="body">
+    <div class="container">
+        <div class="card">
+            <h3>BMI Calculator</h3>
+            <form class="mx-4 mt-3 mb-0" method="post" onsubmit="bmi(event)">
+                <div class="weight">
+                    <label class="d-block mb-2 fs-5" for="weight">Enter your weight(Kg):</label>
+                    <input type="number" id="weight" class="mb-3 fs-5" autocomplete="off" placeholder="weight(Kg)">
+                </div>
+                <div class="height">
+                    <label class="d-block mb-2 fs-5" for="height">Enter your height(cm):</label>
+                    <input type="number" id="height" class="mb-3 fs-5" autocomplete="off" placeholder="height(cm)">
+                </div>
+                <div class="btn bmibtn">
+                    <button class="btn bg-success" id="bmibtn">Calculate BMI</button>
+                </div>
+            </form>
+            <div class="m-5 fs-5 result" id="result"></div>
+        </div>
+    </div>
+
+    <script>
+        let weight = document.getElementById("weight");
+        let height = document.getElementById("height");
+        let result = document.getElementById("result");
+        function bmi(event) {
+            event.preventDefault();
+            if (weight.value === '') {
+                weight.style.border = "2px solid red";
+                alert("please enter your weight");
+            } else{
+                weight.style.border = "2px solid green"
+            }
+            if (height.value === '') {
+                height.style.border = "2px solid red";
+                alert("please enter your height");
+            } else{
+                height.style.border = "2px solid green"
+            }
+
+            if(weight.value && height.value != ''){
+                result.style.display="block";
+            // find the weight 
+            let weight1 = weight.value;
+            // cm convert to meter square
+            let meter = height.value/100;
+            let meterSquare = (meter*meter).toFixed(2)
+            
+            // find the BMI 
+            let Bmi = (weight1/meterSquare).toFixed(2);
+            alert(Bmi);
+
+            let status;
+
+            if (Bmi < 16) {
+                status = "Severe Thinness";
+            } 
+            else if (Bmi>16 && Bmi<17 ){
+                status = "Moderate Thinness";
+            } 
+            else if (Bmi>17 && Bmi<18.5 ){
+                status = "Mild Thinness";
+            }
+            else if (Bmi>18.5 && Bmi<25 ){
+                status = "Normal";
+            }
+            else if (Bmi>25 && Bmi<30 ){
+                status = "Overweight";
+            }
+            else if (Bmi>30){
+                status = "Obese Class I";
+            }
+            result.innerHTML = `Your BMI is: <span id = 'bmivalue'>${Bmi}</span> Kg/m2 <span id = 'status'>(${status})</span>`;
+            }
+
+            
+        }
+    </script>
+
+<script src="./bootstarp.min.js"></script>    
+</body>
+</html>
